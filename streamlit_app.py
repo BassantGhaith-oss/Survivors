@@ -11,7 +11,7 @@ st.info('Welcome to Survivors Team App')
 # ----------------- Sidebar Menu -----------------
 page = st.sidebar.radio(
     "Navigation",
-    ["Taxi Model", "Credit Model"]
+    ["Taxi Model", "Credit Model"])
 # ----------------- Load Models Once -----------------
 @st.cache_resource
 def load_model(path):
