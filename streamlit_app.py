@@ -132,8 +132,22 @@ elif page == "Taxi Model":
     "distance_km",
     options=[1, 2, 3, 4, 5, 6,7,8]
     )
-    
-# 💳 Credit Model Page
+    # Input
+    vendor = st.selectbox("Vendor ID", ["1", "2"])
+    ratecode = st.selectbox("Ratecode ID", ["1", "2", "3", "4", "5"])
+
+    # تحويل لاختيارات One-Hot
+    input_data = {
+    'VendorID_2': 1 if vendor == "2" else 0,
+    'RatecodeID_2': 1 if ratecode == "2" else 0,
+    'RatecodeID_3': 1 if ratecode == "3" else 0,
+    'RatecodeID_4': 1 if ratecode == "4" else 0,
+    'RatecodeID_5': 1 if ratecode == "5" else 0
+     }
+
+     df = pd.DataFrame([input_data])
+     st.write(df)
+     # 💳 Credit Model Page
 
 elif page == "Credit Model":
     st.header("💳 Cre.")
