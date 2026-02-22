@@ -147,6 +147,8 @@ elif page == "Taxi Model":
 
     df = pd.DataFrame([input_data])
     st.write(df)
+    st.write("Model features:", model1.feature_names_in_)
+    st.write("Input DataFrame columns:", input_df.columns.tolist())
     if st.button("Predict Fare"):
         prediction = model1.predict(input_df)
         st.success(f"Predicted Fare = ${prediction[0]:.2f}")
