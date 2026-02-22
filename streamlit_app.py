@@ -15,14 +15,14 @@ if page == "Home":
 # 🚕 Taxi Model Page
 
 elif page == "Taxi Model":
-    st.header("Pick up Trip")
+    st.header("🚕 Pick up Trip")
     model1 = joblib.load("taxi_model.pkl")
     
 
 # 💳 Credit Model Page
 
 elif page == "Credit Model":
-    st.header("Cre.")
+    st.header("💳 Cre.")
     model2 = joblib.load("best_random_forest_model.pkl")
 
 
