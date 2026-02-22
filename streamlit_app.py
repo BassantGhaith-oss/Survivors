@@ -2,7 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+@st.cache_resource
+def load_model(path):
+    return joblib.load(path)
 
+model1 = load_model("taxi_model.pkl")  
 # ----------------- Sidebar Menu -----------------
 page = st.sidebar.radio(
     "Navigation",
@@ -60,8 +64,6 @@ if page == "Home":
 elif page == "Taxi Model":
     st.header("🚕 Pick up Trip")
     st.subheader("⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛⬜⬛")
-    
-    model1 = joblib.load("taxi_model.pkl")
     input_data={}
     
     # Passenger Count (مثلاً نسمح من 1 لـ 6)
