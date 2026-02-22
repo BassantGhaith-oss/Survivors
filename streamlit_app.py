@@ -6,7 +6,7 @@ import joblib
 # ----------------- Sidebar Menu -----------------
 page = st.sidebar.radio(
     "Navigation",
-    ["Home",Taxi Model", "Credit Model"]
+    ["Home","Taxi Model","Credit Model"]
 )
 if page == "Home":
     st.title("The Survivors")
