@@ -1,12 +1,30 @@
+# setup
+
 import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+
+# headlines and welcom message
+
 st.title('The Survivors')
 st.info('Welcome to Survivors Team's App')
 
-model1 = joblib.load("taxi_model.pkl")
-model2 =joblib.load("")
+ # make some arrangements
+ 
+ model_choice = st.sidebar.radio(
+    "Choose Model",
+    ("Model 1", "Model 2")
+)
+
+if model_choice == "Model 1":
+    st.header("Pick up Trip")
+    model = joblib.load("taxi_model.pkl")
+
+elif model_choice == "Model 2":
+    st.header("Model 2 Prediction")
+    model = joblib.load("best_random_forest_model.pkl")  
+    
 columns = [
     'passenger_count', 'trip_distance', 'pickup_longitude', 'pickup_latitude',
     'dropoff_longitude', 'dropoff_latitude', 'improvement_surcharge',
@@ -61,9 +79,3 @@ st.write("Input Data Preview:", input_df)
 if st.button("Predict Fare"):
     prediction = model.predict(input_df)
     st.success(f"Predicted Fare: ${prediction[0]:.2f}")
-
-if st.button("Predict"):
-    X = np.array([[distance, passengers]])
-    pred = model.predict(X)
-    st.write("Price:", pred[0])
-
