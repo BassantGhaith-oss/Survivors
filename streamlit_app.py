@@ -10,34 +10,36 @@ page = st.sidebar.radio(
 )
 page_bg = """
 <style>
-    /* الخلفية الرئيسية للنص */
-    .stApp {
-        background-color: #FFF8E7;  /* خلفية الصفحة */
-        color: #333333;             /* لون النص */
-    }
+/* الخلفية الرئيسية */
+.stApp {
+    background-color: #FFF8E7;  /* الصفحة فاتحة */
+    color: #333333;             /* النص العادي */
+}
 
-    /* لون الشريط الجانبي */
-    .css-1d391kg {                
-        background-color: #000000;  /* أسود */
-        color: #FFFFFF;             /* نص أبيض في sidebar */
-    }
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #000000;  /* أسود */
+    color: #FFF8E7;             /* النص أصفر فاتح */
+}
 
-    /* أزرار التطبيق */
-    .stButton>button {
-        background-color: #FF8C42;
-        color: white;
-        border-radius: 8px;
-        height: 40px;
-        width: 100%;
-    }
+/* أزرار التطبيق */
+.stButton>button {
+    background-color: #89CFF0;  /* Baby Blue */
+    color: white;
+    border-radius: 8px;
+    height: 40px;
+    width: 100%;
+    font-weight: bold;
+}
 
-    /* العناوين */
-    h1, h2, h3, .css-1v0mbdj-StreamlitMarkdown {
-        color: #1E3A8A;
-    }
+/* العناوين */
+h1, h2, h3, .css-1v0mbdj-StreamlitMarkdown {
+    color: #1E3A8A;  /* العناوين أزرق داكن */
+}
 </style>
 """
 st.markdown(page_bg, unsafe_allow_html=True)
+
 
 if page == "Home":
     st.title("The Survivors ⚡")
