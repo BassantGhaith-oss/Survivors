@@ -79,11 +79,6 @@ elif page == "Taxi Model":
     "Pickup Longitude",
     options=[1, 2, 3, 4, 5, 6,7,8]
     )
-    # pickup longitude
-    input_data['pickup_longitude'] = st.selectbox(
-    "Pickup Longitude",
-    options=[1, 2, 3, 4, 5, 6,7,8]
-    )
     # pickup_latitude
     input_data['pickup_latitude'] = st.selectbox(
     "Pickup Latitude",
