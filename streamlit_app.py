@@ -157,7 +157,7 @@ elif page == "Taxi Model":
     if st.button("Predict Fare"):
         prediction = model1.predict(input_df)
         st.success(f"Predicted Fare = ${prediction[0]:.2f}")
-    
+import matplotlib.pyplot as plt   
 elif page == "Visualization":
     st.info("Model Visualization — Monte Carlo Simulation")
 
