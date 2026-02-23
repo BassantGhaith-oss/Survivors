@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
 import numpy as np
+import seaborn as sns
 import os
 import plotly.graph_objects as go
 data_path = "small_data.csv"
