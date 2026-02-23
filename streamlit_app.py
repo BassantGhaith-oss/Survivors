@@ -5,6 +5,8 @@ import joblib
 @st.cache_resource
 def load_model(path):
     return joblib.load(path) 
+model1 = load_model("taxi_model.pkl")
+
 # ----------------- Sidebar Menu -----------------
 page = st.sidebar.radio(
     "Navigation",
