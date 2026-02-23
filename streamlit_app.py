@@ -4,15 +4,8 @@ import numpy as np
 import joblib
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-@st.cache_data
-def load_data(path):
-    return pd.read_csv(path)
-
-# تحميل الداتا
-data = load_data("taxi_data.csv")
-st.success("Dataset loaded successfully!")
-st.write("Preview of dataset:")
-st.dataframe(data.head())
+url = "https://drive.google.com/file/d/1IFfizkL2igkaqeyZBBv5hZLBY3RAAK9M/view?usp=sharing"
+data = pd.read_csv(url)
 
 @st.cache_resource
 def load_model(path):
