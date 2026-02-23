@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 @st.cache_resource
 def load_model(path):
     return joblib.load(path) 
@@ -156,8 +157,7 @@ elif page == "Taxi Model":
     input_df = input_df.reindex(columns=expected_cols, fill_value=0)
     if st.button("Predict Fare"):
         prediction = model1.predict(input_df)
-        st.success(f"Predicted Fare = ${prediction[0]:.2f}")
-import matplotlib.pyplot as plt   
+        st.success(f"Predicted Fare = ${prediction[0]:.2f}")import matplotlib.pyplot as plt   
 elif page == "Visualization":
     st.info("Model Visualization — Monte Carlo Simulation")
 
