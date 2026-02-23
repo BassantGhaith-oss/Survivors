@@ -159,10 +159,36 @@ elif page == "Taxi Model":
         st.success(f"Predicted Fare = ${prediction[0]:.2f}")
     
 elif page == "Visualization":
-    st.info("Model Visualization")
+    st.info("Model Visualization — Monte Carlo Simulation")
+
+    # ----------------- Inputs -----------------
+    # اختيار عدد المسارات ديناميكياً
+    N_PATHS = st.slider("Number of Simulated Paths", min_value=50, max_value=500, value=500, step=50)
+    max_distance = st.number_input("Max Distance (km)", min_value=1, max_value=500, value=100)
+
+    # ----------------- Dummy Data -----------------
+    # استبدلي بالبيانات الحقيقية من الموديل
+    distances = np.linspace(0, max_distance, 100)
+    paths = [np.cumsum(np.random.rand(len(distances))*0.5) for _ in range(N_PATHS)]
+    final_fares = [path[-1] for path in paths]
+
+    # ----------------- Percentiles -----------------
+    paths_array = np.array(paths)
+    mean_path = np.mean(paths_array, axis=0)
+    p10_path = np.percentile(paths_array, 10, axis=0)
+    p25_path = np.percentile(paths_array, 25, axis=0)
+    p75_path = np.percentile(paths_array, 75, axis=0)
+    p90_path = np.percentile(paths_array, 90, axis=0)
+
+    # ----------------- Helper Function -----------------
+    def fare_to_color(fare):
+        norm = min(fare / max(final_fares), 1.0)
+        return f'rgba(0, {int(200*norm)}, 255, 0.3)'
+
+    # ----------------- Plotly Figure -----------------
     fig = go.Figure()
 
-    # Add all 500 individual paths
+    # Add all individual paths
     for i in range(N_PATHS):
         color = fare_to_color(final_fares[i])
         fig.add_trace(go.Scatter(
@@ -193,7 +219,7 @@ elif page == "Visualization":
         name='P25–P75 Band'
     ))
 
-    # Percentile lines
+    # P10 and P90 dashed lines
     fig.add_trace(go.Scatter(
         x=distances, y=p90_path,
         mode='lines',
@@ -208,7 +234,7 @@ elif page == "Visualization":
         name='10th Percentile'
     ))
 
-    # Mean line
+    # Mean path — golden line
     fig.add_trace(go.Scatter(
         x=distances, y=mean_path,
         mode='lines',
@@ -217,38 +243,43 @@ elif page == "Visualization":
     ))
 
     # Annotations
-    fig.add_annotation(
-        x=max_distance, y=mean_path[-1],
-        text=f"  MEAN ${mean_path[-1]:.2f}",
-        showarrow=False,
-        font=dict(color='#FFE135', size=11)
-    )
+    fig.add_annotation(x=max_distance, y=mean_path[-1],
+                       text=f"  MEAN ${mean_path[-1]:.2f}", showarrow=False,
+                       font=dict(color='#FFE135', size=11))
 
-    fig.add_annotation(
-        x=max_distance, y=p90_path[-1],
-        text=f"  P90 ${p90_path[-1]:.2f}",
-        showarrow=False,
-        font=dict(color='cyan', size=10)
-    )
+    fig.add_annotation(x=max_distance, y=p90_path[-1],
+                       text=f"  P90 ${p90_path[-1]:.2f}", showarrow=False,
+                       font=dict(color='rgba(0,245,255,0.8)', size=10))
 
-    fig.add_annotation(
-        x=max_distance, y=p10_path[-1],
-        text=f"  P10 ${p10_path[-1]:.2f}",
-        showarrow=False,
-        font=dict(color='cyan', size=10)
-    )
+    fig.add_annotation(x=max_distance, y=p10_path[-1],
+                       text=f"  P10 ${p10_path[-1]:.2f}", showarrow=False,
+                       font=dict(color='rgba(0,245,255,0.8)', size=10))
 
     # Layout
     fig.update_layout(
-        title="Monte Carlo Fare Simulation — 500 Paths",
+        title=dict(
+            text='Monte Carlo Fare Simulation',
+            font=dict(size=18, color='white', family='monospace'),
+            x=0.5
+        ),
         paper_bgcolor='#020408',
         plot_bgcolor='#060D14',
-        height=500
+        font=dict(color='rgba(0,245,255,0.7)', family='monospace'),
+        xaxis=dict(title='Distance (km)', gridcolor='rgba(0,245,255,0.06)',
+                   color='rgba(0,245,255,0.5)', zeroline=False),
+        yaxis=dict(title='Fare Amount ($)', gridcolor='rgba(0,245,255,0.06)',
+                   color='rgba(0,245,255,0.5)', zeroline=False),
+        legend=dict(bgcolor='rgba(0,20,35,0.8)',
+                    bordercolor='rgba(0,245,255,0.2)',
+                    borderwidth=1,
+                    font=dict(size=10)),
+        height=500,
+        margin=dict(r=120)
     )
 
-    # بدل fig.show()
+    # Show figure in Streamlit
     st.plotly_chart(fig, use_container_width=True)
 
-    st.info(f"At 10km avg fare = ${mean_path[50]:.2f}")
-    st.info(f"90% rides between ${p10_path[50]:.2f} and ${p90_path[50]:.2f}")
-    
+    # Summary
+    st.info(f"Insight: At 10km, the average fare is ${mean_path[50]:.2f}")
+    st.info(f"90% of rides cost between ${p10_path[50]:.2f} and ${p90_path[50]:.2f} at 10km")
