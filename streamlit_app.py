@@ -1,12 +1,75 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import joblib
-import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-file_id = "1IFfizkL2igkaqeyZBBv5hZLBY3RAAK9M"
-url = f"https://drive.google.com/uc?export=download&id={file_id}"
+import plotly.express as px
+import numpy as np
+
+st.title("Taxi Data EDA & Visualization")
+
+# ----------------- Load Dataset -----------------
+url = "https://drive.google.com/uc?id=1IFfizkL2igkaqeyZBBv5hZLBY3RAAK9M&export=download"
 data = pd.read_csv(url)
+data.columns = data.columns.str.strip()  # remove spaces
+
+st.write("Dataset loaded! Columns available:", data.columns.tolist())
+
+# ----------------- Check required columns -----------------
+required_cols = ['trip_distance', 'trip_duration', 'fare_amount', 
+                 'pickup_latitude', 'pickup_longitude']
+
+missing_cols = [col for col in required_cols if col not in data.columns]
+if missing_cols:
+    st.warning(f"Some columns are missing for plots: {missing_cols}")
+else:
+    st.success("All required columns exist. Generating plots...")
+
+    # ----------------- Matplotlib Scatter Plots -----------------
+    plt.style.use('dark_background')
+
+    # Trip Distance vs Fare
+    fig1, ax1 = plt.subplots(figsize=(8,5))
+    ax1.scatter(data['trip_distance'], data['fare_amount'], alpha=0.5, color='#8A2BE2')
+    ax1.set_title("Trip Distance vs Fare Amount", color='white')
+    ax1.set_xlabel("Trip Distance", color='white')
+    ax1.set_ylabel("Fare Amount", color='white')
+    ax1.tick_params(axis='x', colors='white')
+    ax1.tick_params(axis='y', colors='white')
+    st.pyplot(fig1)
+
+    # Trip Duration vs Fare
+    fig2, ax2 = plt.subplots(figsize=(8,5))
+    ax2.scatter(data['trip_duration'], data['fare_amount'], alpha=0.5, color='#008080')
+    ax2.set_title("Trip Duration vs Fare Amount", color='white')
+    ax2.set_xlabel("Trip Duration", color='white')
+    ax2.set_ylabel("Fare Amount", color='white')
+    ax2.tick_params(axis='x', colors='white')
+    ax2.tick_params(axis='y', colors='white')
+    st.pyplot(fig2)
+
+    # Histogram of Fare
+    bins = [0,5,10,15,20,25,30,40,50,75,200]
+    labels = ['$0–5','$5–10','$10–15','$15–20','$20–25','$25–30','$30–40','$40–50','$50–75','$75+']
+    data['fare_bucket'] = pd.cut(data['fare_amount'], bins=bins, labels=labels)
+    bucket_counts = data['fare_bucket'].value_counts().sort_index()
+
+    fig3, ax3 = plt.subplots(figsize=(8,5))
+    ax3.bar(labels, bucket_counts, color='#008080', alpha=0.7)
+    ax3.set_title("Fare Distribution Histogram", color='white')
+    ax3.set_xlabel("Fare Range ($)", color='white')
+    ax3.set_ylabel("Number of Rides", color='white')
+    ax3.tick_params(axis='x', rotation=45, colors='white')
+    ax3.tick_params(axis='y', colors='white')
+    st.pyplot(fig3)
+
+    # Map of pickups
+    sample_size = min(5000, len(data))
+    df_map = data.sample(sample_size, random_state=42)
+    fig4 = px.scatter_mapbox(
+        df_map, lat='pickup_latitude', lon='pickup_longitude',
+        color='fare_amount', size_max=4, opacity=0.5, zoom=10,
+        mapbox_style='carto-darkmatter'
+    )
+    st.plotly_chart(fig4, use_container_width=True)
 
 @st.cache_resource
 def load_model(path):
