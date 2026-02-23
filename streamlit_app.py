@@ -74,78 +74,79 @@ elif page == "Taxi Model":
     # trip distance
     input_data['trip_distance'] = st.selectbox(
     "Trip Total Distance",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[20.0, 40.0, 60.0, 80.0, 100.0, 120.0, 140.0, 160.0]
     )
     # pickup longitude
     input_data['pickup_longitude'] = st.selectbox(
     "Pickup Longitude",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[-76.0, -75.0, -74.0, -73.0, -72.0, -71.0 , -70.0 , -69.0 , -68.0 , -67.0 , -66.0,-65.0, -64.0, -63.0, -62.0, -61.0, -60.0 , -59.0 , -58.0 , -57.0 , -56.0,-55.0, -54.0, -53.0, -52.0, -51.0 ]
     )
     # pickup_latitude
     input_data['pickup_latitude'] = st.selectbox(
     "Pickup Latitude",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0 , 40.0 , 45.0 , 50.0 , 55.0]
     )
     
     # dropoff_longitude
     input_data['dropoff_longitude'] = st.selectbox(
     "dropoff longitude",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[-76.0, -75.0, -74.0, -73.0, -72.0, -71.0 , -70.0 , -69.0 , -68.0 , -67.0 , -66.0,-65.0, -64.0, -63.0, -62.0, -61.0, -60.0 , -59.0 , -58.0 , -57.0 , -56.0,-55.0, -54.0, -53.0, -52.0, -51.0 ]
     )
     
     # 'dropoff_latitude',
     input_data['dropoff_latitude'] = st.selectbox(
     "dropoff_latitude ",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0 , 40.0 , 45.0 , 50.0 , 55.0]
     )
     
     # improvement_surcharge
     input_data['improvement_surcharge'] = st.selectbox(
     "improvement_surcharge ",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[-0.3 , -0.2 , -0.1 , 0.0 , 0.1 ,0.2 , 0.3]
     )
     # trip_duration
     input_data['trip_duration'] = st.selectbox(
     "trip_duration ",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0, 9.0 ,10.0 ,11.0 ,12.0 , 13.0, 14.0 ,15.0 , 16.0 ,17.0 ,18.0 ,19.0 ,20.0]
     )
     # pickup_month
     input_data['pickup_month'] = st.selectbox(
     "pickup_month ",
-    options=[1, 2, 3, 4, 5, 6,7,8]
+    options=[1 ]
     )
     # pickup_day
     input_data['pickup_day'] = st.selectbox(
     "pickup_day ",
-    options=[1, 2, 3, 4, 5, 6,7,8]
+    options=[1 ,2 ,3 ,4,5,6 ,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
     )
     # pickup_hour
     input_data['pickup_hour'] = st.selectbox(
     "pickup_hour ",
-    options=[1, 2, 3, 4, 5, 6,7,8]
+    options=[0,1 ,2 ,3 ,4,5,6 ,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     )
     # pickup_minute
     input_data['pickup_minute'] = st.selectbox(
     "pickup_minute ",
-    options=[1, 2, 3, 4, 5, 6,7,8]
+    options=[1 ,2 ,3 ,4,5,6 ,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
     )
     # distance_km
     input_data['distance_km'] = st.selectbox(
     "distance_km",
-    options=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0,7.0,8.0]
+    options=[500.0,  1000.0 , 1500.0 , 2000.0 , 2500.0 , 3000.0 , 3500.0 , 4000.0 , 4500.0 , 5000.0 , 5500.0 , 6000.0 ,6500.0 ,7000.0 ,7500.0 ,8000.0 ,8500.0]
     )
     # Input
-    vendor = st.selectbox("Vendor ID", ["1", "2"])
-    ratecode = st.selectbox("Ratecode ID", ["1", "2", "3", "4", "5"])
+    vendor = st.selectbox("Vendor ID", [2])
+    ratecode = st.selectbox("Ratecode ID", [2,3,4,5,6,99])
 
     # Vendor ID
     input_data['VendorID_2'] = 1 if vendor == "2" else 0
 
     # Ratecode IDs
-    input_data['RatecodeID_2'] = 1 if ratecode == "2" else 0
-    input_data['RatecodeID_3'] = 1 if ratecode == "3" else 0
-    input_data['RatecodeID_4'] = 1 if ratecode == "4" else 0
-    input_data['RatecodeID_5'] = 1 if ratecode == "5" else 0
+    input_data['RatecodeID_2'] = 1 if ratecode == 2 else 0
+    input_data['RatecodeID_3'] = 1 if ratecode == 3 else 0
+    input_data['RatecodeID_4'] = 1 if ratecode == 4 else 0
+    input_data['RatecodeID_5'] = 1 if ratecode == 5 else 0
+    input_data['RatecodeID_99'] = 1 if ratecode == 99 else 0
     
     input_df = pd.DataFrame([input_data])
     st.write(input_df)
