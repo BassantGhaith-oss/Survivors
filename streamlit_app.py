@@ -157,7 +157,8 @@ elif page == "Taxi Model":
     input_df = input_df.reindex(columns=expected_cols, fill_value=0)
     if st.button("Predict Fare"):
         prediction = model1.predict(input_df)
-        st.success(f"Predicted Fare = ${prediction[0]:.2f}")import matplotlib.pyplot as plt   
+        st.success(f"Predicted Fare = ${prediction[0]:.2f}")
+import matplotlib.pyplot as plt   
 elif page == "Visualization":
     st.info("Model Visualization — Monte Carlo Simulation")
 
