@@ -2,7 +2,7 @@
 this is our machine learning app of NYC_taxi dataset
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://NYC-taxi.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://taxi-app.streamlit.app/)
 
 ## GitHub Codespaces
 
